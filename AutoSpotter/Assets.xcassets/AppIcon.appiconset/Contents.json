@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "logofast_1776429028077.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -12,6 +13,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "logofast_1776429028077 2.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -23,6 +25,7 @@
           "value" : "tinted"
         }
       ],
+      "filename" : "logofast_1776429028077 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
