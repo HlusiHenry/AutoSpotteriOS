@@ -1,6 +1,10 @@
 {
   "images" : [
     {
+<<<<<<< HEAD
+=======
+      "filename" : "logofast_1776429028077.png",
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -12,6 +16,10 @@
           "value" : "dark"
         }
       ],
+<<<<<<< HEAD
+=======
+      "filename" : "logofast_1776429028077 2.png",
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -23,6 +31,10 @@
           "value" : "tinted"
         }
       ],
+<<<<<<< HEAD
+=======
+      "filename" : "logofast_1776429028077 1.png",
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"

@@ -11,7 +11,10 @@ struct DetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
+<<<<<<< HEAD
                 // Hero Emoji
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                 ZStack {
                     Color(hex: "#1E1E1E")
                     Text(car.emoji)
@@ -20,7 +23,10 @@ struct DetailView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 20) {
+<<<<<<< HEAD
                     // Titel + Badge
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                     VStack(alignment: .leading, spacing: 8) {
                         Text(car.brand)
                             .font(.subheadline)
@@ -39,14 +45,20 @@ struct DetailView: View {
 
                     Divider().background(Color.gray.opacity(0.3))
 
+<<<<<<< HEAD
                     // Beschreibung
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                     Text(car.description)
                         .foregroundColor(.gray)
                         .font(.body)
 
                     Divider().background(Color.gray.opacity(0.3))
 
+<<<<<<< HEAD
                     // Daten Tabelle
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                     VStack(spacing: 12) {
                         DataRow(label: "Baujahr", value: "\(car.year)")
                         DataRow(label: "Kategorie", value: car.category)
@@ -55,7 +67,10 @@ struct DetailView: View {
                         DataRow(label: "Preis", value: car.price)
                     }
 
+<<<<<<< HEAD
                     // Gesehen Button
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                     Button {
                         spotService.toggleSpot(car.id)
                     } label: {

@@ -2,6 +2,10 @@ import SwiftUI
 
 struct StatsView: View {
     @EnvironmentObject var spotService: SpotService
+<<<<<<< HEAD
+=======
+    @State private var showSettings = false
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
 
     let rarityLevels: [(Int, String, Color)] = [
         (1, "Häufig", .green),
@@ -44,6 +48,86 @@ struct StatsView: View {
             }
             .background(Color(hex: "#121212"))
             .navigationTitle("Stats")
+<<<<<<< HEAD
+=======
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundColor(Color(hex: "#E8C547"))
+                    }
+                }
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+                    .environmentObject(spotService)
+            }
+        }
+    }
+}
+
+struct SettingsView: View {
+    @EnvironmentObject var spotService: SpotService
+    @Environment(\.dismiss) var dismiss
+    @State private var showDeleteConfirm = false
+
+    var body: some View {
+        NavigationView {
+            List {
+                Section(header: Text("Daten")) {
+                    Button(role: .destructive) {
+                        showDeleteConfirm = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "trash.fill")
+                            Text("Alle Spots löschen")
+                        }
+                    }
+                    .confirmationDialog(
+                        "Wirklich alle Spots löschen?",
+                        isPresented: $showDeleteConfirm,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Alles löschen", role: .destructive) {
+                            spotService.clearAll()
+                            dismiss()
+                        }
+                        Button("Abbrechen", role: .cancel) {}
+                    }
+                }
+
+                Section(header: Text("App Info")) {
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text("1.0.0")
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Autos gesamt")
+                        Spacer()
+                        Text("\(allCars.count)")
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Gespottet")
+                        Spacer()
+                        Text("\(spotService.spottedIds.count)")
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
+            .navigationTitle("Einstellungen")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Fertig") { dismiss() }
+                        .foregroundColor(Color(hex: "#E8C547"))
+                }
+            }
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
         }
     }
 }

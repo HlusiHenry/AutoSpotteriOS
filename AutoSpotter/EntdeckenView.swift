@@ -20,7 +20,10 @@ struct EntdeckenView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
+<<<<<<< HEAD
                 // Suchfeld
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                 HStack {
                     Image(systemName: "magnifyingglass").foregroundColor(.gray)
                     TextField("Suche...", text: $search)
@@ -31,7 +34,10 @@ struct EntdeckenView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
 
+<<<<<<< HEAD
                 // Filter
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                 HStack(spacing: 8) {
                     FilterPicker(title: "Marke", selection: $selectedBrand, options: allBrands)
                     FilterPicker(title: "Kategorie", selection: $selectedCategory, options: allCategories)
@@ -39,7 +45,10 @@ struct EntdeckenView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 8)
 
+<<<<<<< HEAD
                 // Liste
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                 List(filtered) { car in
                     NavigationLink(destination: DetailView(car: car)) {
                         CarRow(car: car, isSpotted: spotService.isSpotted(car.id))

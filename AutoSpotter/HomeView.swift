@@ -11,14 +11,20 @@ struct HomeView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
+<<<<<<< HEAD
                     // Punkte Karte
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                     PointsCard(
                         points: spotService.totalPoints,
                         spotted: spotService.spottedIds.count,
                         total: allCars.count
                     )
 
+<<<<<<< HEAD
                     // Zuletzt gespottet
+=======
+>>>>>>> 035070ae751ddea37228c41d25a1b6ea6a9a87c3
                     if recentSpotted.isEmpty {
                         VStack(spacing: 12) {
                             Image(systemName: "car.2")
