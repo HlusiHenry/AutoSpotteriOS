@@ -11,12 +11,8 @@ struct DetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                ZStack {
-                    Color(hex: "#1E1E1E")
-                    Text(car.emoji)
-                        .font(.system(size: 120))
-                        .padding(.vertical, 40)
-                }
+
+                PhotoGallery(car: car)
 
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading, spacing: 8) {
@@ -52,10 +48,12 @@ struct DetailView: View {
                     }
 
                     Button {
+                        let generator = UIImpactFeedbackGenerator(style: .medium)
+                        generator.impactOccurred()
                         spotService.toggleSpot(car.id)
                     } label: {
                         HStack {
-                            Image(systemName: isSpotted ? "checkmark.circle.fill" : "plus.circle.fill")
+                            Image(systemName: isSpotted ? "checkmark.circle.fill" : "binoculars.fill")
                             Text(isSpotted ? "Gespottet ✓" : "Als gespottet markieren")
                                 .bold()
                         }
