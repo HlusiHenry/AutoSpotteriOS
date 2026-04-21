@@ -4,7 +4,9 @@ import SwiftUI
 struct Car: Identifiable, Codable {
     let id: String
     let brand: String
-    let model: String
+    let modelFamily: String   // z.B. "911 Carrera", "M3", "Huracán"
+    let model: String         // z.B. "911 Carrera S (992)"
+    let generation: String    // z.B. "992", "991.2", "G80"
     let year: Int
     let category: String
     let rarityLevel: Int
@@ -13,20 +15,48 @@ struct Car: Identifiable, Codable {
     let price: String
     let description: String
     let emoji: String
-    
-    // Markenfarben für den "Kombiniert"-Look (Option 6 in der Projektbeschreibung)
+
     var brandColor: Color {
         switch brand.lowercased() {
         case "ferrari", "alfa romeo": return .red
         case "lamborghini": return .yellow
-        case "bmw": return .blue
-        case "mercedes-benz": return .gray
-        case "porsche": return Color(hex: "#B8942A") // Gold/Bronze
-        case "audi": return .silver
-        case "bugatti": return .blue
+        case "bmw": return Color(hex: "#1C69D4")
+        case "mercedes-benz": return Color(hex: "#9E9E9E")
+        case "porsche": return Color(hex: "#B8942A")
+        case "audi": return Color(hex: "#BB0A30")
+        case "bugatti": return Color(hex: "#00247D")
         case "mclaren": return .orange
-        case "aston martin": return Color(hex: "#006644") // British Racing Green
-        default: return Color(hex: "#2C2C2E") // Standard Dunkelgrau
+        case "aston martin": return Color(hex: "#006644")
+        case "koenigsegg": return Color(hex: "#1A1A1A")
+        case "pagani": return Color(hex: "#C5A028")
+        case "rimac": return Color(hex: "#003087")
+        case "maserati": return Color(hex: "#00529F")
+        case "nissan": return Color(hex: "#C3002F")
+        case "honda": return Color(hex: "#CC0000")
+        case "toyota": return Color(hex: "#EB0A1E")
+        case "ford": return Color(hex: "#003476")
+        case "chevrolet": return Color(hex: "#D4AF37")
+        case "dodge": return Color(hex: "#CC0000")
+        case "subaru": return Color(hex: "#003399")
+        case "hennessey": return Color(hex: "#8B0000")
+        case "ssc": return Color(hex: "#1A1A1A")
+        case "czinger": return Color(hex: "#2D2D2D")
+        case "gordon murray": return Color(hex: "#006B3C")
+        case "de tomaso": return Color(hex: "#003580")
+        case "bentley": return Color(hex: "#4A4A4A")
+        case "rolls-royce": return Color(hex: "#6B0F1A")
+        case "jaguar": return Color(hex: "#1D5C1D")
+        case "land rover": return Color(hex: "#005A2B")
+        case "tesla": return Color(hex: "#CC0000")
+        case "vw": return Color(hex: "#001E6C")
+        case "renault": return Color(hex: "#FFD700")
+        case "peugeot": return Color(hex: "#002D72")
+        case "lancia": return Color(hex: "#003580")
+        case "mitsubishi": return Color(hex: "#CC0000")
+        case "mazda": return Color(hex: "#9B1B30")
+        case "hyundai": return Color(hex: "#002C5F")
+        case "kia": return Color(hex: "#05141F")
+        default: return Color(hex: "#2C2C2E")
         }
     }
 
@@ -64,7 +94,6 @@ struct Car: Identifiable, Codable {
     }
 }
 
-// Hilfserweiterung für Standardfarben
 extension Color {
     static let silver = Color(red: 0.75, green: 0.75, blue: 0.75)
 }
