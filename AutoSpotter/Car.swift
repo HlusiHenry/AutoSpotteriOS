@@ -4,9 +4,9 @@ import SwiftUI
 struct Car: Identifiable, Codable {
     let id: String
     let brand: String
-    let modelFamily: String   // z.B. "911 Carrera", "M3", "Huracán"
-    let model: String         // z.B. "911 Carrera S (992)"
-    let generation: String    // z.B. "992", "991.2", "G80"
+    let modelFamily: String
+    let model: String
+    let generation: String
     let year: Int
     let category: String
     let rarityLevel: Int
@@ -56,6 +56,8 @@ struct Car: Identifiable, Codable {
         case "mazda": return Color(hex: "#9B1B30")
         case "hyundai": return Color(hex: "#002C5F")
         case "kia": return Color(hex: "#05141F")
+        case "lotus": return Color(hex: "#B5CC18")
+        case "lexus": return Color(hex: "#1B1B1B")
         default: return Color(hex: "#2C2C2E")
         }
     }
@@ -73,7 +75,7 @@ struct Car: Identifiable, Codable {
 
     var rarityLabel: String {
         switch rarityLevel {
-        case 1: return "Häufig"
+        case 1: return "Haeufig"
         case 2: return "Gelegentlich"
         case 3: return "Selten"
         case 4: return "Sehr selten"
