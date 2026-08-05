@@ -2,10 +2,16 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var spotService: SpotService
-    
+    @ObservedObject var streakService = StreakService.shared
+    @ObservedObject var store = SpotStore.shared
+
     // Wir greifen auf allCars aus CarsData.swift zu
     var recentSpotted: [Car] {
         allCars.filter { spotService.isSpotted($0.id) }.suffix(5).reversed()
+    }
+
+    var latestSpotRecords: [SpotRecord] {
+        store.records.sorted { $0.spottedAt > $1.spottedAt }.prefix(5).map { $0 }
     }
     
     var body: some View {
@@ -15,8 +21,16 @@ struct HomeView: View {
                     // Die neue PointsCard
                     PointsCard(
                         points: spotService.totalPoints,
-                        spotted: spotService.spottedIds.count,
+                        spotted: store.allSpottedIds.count,
                         total: allCars.count
+                    )
+
+                    // Streak Card
+                    StreakCard(
+                        currentStreak: streakService.currentStreak,
+                        longestStreak: streakService.longestStreak,
+                        todaySpots: streakService.todaySpots,
+                        totalDays: streakService.totalDaysSpotted
                     )
                     
                     VStack(alignment: .leading, spacing: 15) {

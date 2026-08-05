@@ -3,6 +3,7 @@ import SwiftUI
 struct LeaderboardView: View {
     @EnvironmentObject var spotService: SpotService
     @ObservedObject var leaderboardService = LeaderboardService.shared
+    @ObservedObject var store = SpotStore.shared
 
     @State private var showNameSheet = false
     @State private var nameInput = ""
@@ -57,7 +58,7 @@ struct LeaderboardView: View {
                 if !leaderboardService.myName.isEmpty {
                     leaderboardService.updateMyScore(
                         points: spotService.totalPoints,
-                        spotsCount: spotService.spottedIds.count
+                        spotsCount: store.allSpottedIds.count
                     )
                 }
             }
@@ -96,7 +97,7 @@ struct LeaderboardView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(leaderboardService.myName)
                             .font(.headline)
-                        Text("\(spotService.spottedIds.count) Spots")
+                        Text("\(store.allSpottedIds.count) Spots")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -197,7 +198,7 @@ struct LeaderboardView: View {
                         leaderboardService.saveMyName(nameInput.trimmingCharacters(in: .whitespaces))
                         leaderboardService.updateMyScore(
                             points: spotService.totalPoints,
-                            spotsCount: spotService.spottedIds.count
+                            spotsCount: store.allSpottedIds.count
                         )
                         showNameSheet = false
                     }

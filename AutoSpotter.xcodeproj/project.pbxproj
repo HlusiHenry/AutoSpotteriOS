@@ -259,6 +259,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "AutoSpotter braucht die Kamera um Autos zu fotografieren.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "AutoSpotter speichert deinen Standort bei jedem Spot damit du deine Funde auf der Karte sehen kannst.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "AutoSpotter speichert deinen Standort bei jedem Spot damit du deine Funde auf der Karte sehen kannst.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -292,6 +295,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "AutoSpotter braucht die Kamera um Autos zu fotografieren.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "AutoSpotter speichert deinen Standort bei jedem Spot damit du deine Funde auf der Karte sehen kannst.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "AutoSpotter speichert deinen Standort bei jedem Spot damit du deine Funde auf der Karte sehen kannst.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;

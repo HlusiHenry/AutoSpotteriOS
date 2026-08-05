@@ -148,6 +148,77 @@ struct PointsCard: View {
     }
 }
 
+// ─── StreakCard ─────────────────────────────────────────────────────────────
+struct StreakCard: View {
+    let currentStreak: Int
+    let longestStreak: Int
+    let todaySpots: Int
+    let totalDays: Int
+
+    var body: some View {
+        HStack(spacing: 0) {
+            // Aktueller Streak
+            VStack(spacing: 4) {
+                HStack(spacing: 4) {
+                    Image(systemName: "flame.fill")
+                        .foregroundColor(.orange)
+                        .font(.title3)
+                    Text("\(currentStreak)")
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                }
+                Text("Tage Streak")
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity)
+
+            Divider()
+                .frame(height: 40)
+                .background(Color.white.opacity(0.1))
+
+            // Bester Streak
+            VStack(spacing: 4) {
+                HStack(spacing: 4) {
+                    Image(systemName: "trophy.fill")
+                        .foregroundColor(Color(hex: "#E8C547"))
+                        .font(.title3)
+                    Text("\(longestStreak)")
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                }
+                Text("Rekord")
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity)
+
+            Divider()
+                .frame(height: 40)
+                .background(Color.white.opacity(0.1))
+
+            // Heute
+            VStack(spacing: 4) {
+                Text("\(todaySpots)")
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                Text("Heute")
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .padding(16)
+        .background(Color.white.opacity(0.04))
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.white.opacity(0.06), lineWidth: 1)
+        )
+        .padding(.horizontal)
+    }
+}
+
 // ─── Color Hex Extension ──────────────────────────────────────────────────────
 extension Color {
     init(hex: String) {

@@ -1,11 +1,16 @@
 import Foundation
 import Combine
+import CoreLocation
 
 class SpotService: ObservableObject {
     static let shared = SpotService()
     private let key = "spotted_cars"
 
     @Published var spottedIds: Set<String> = []
+
+    let spotStore = SpotStore.shared
+    let streakService = StreakService.shared
+    let challengeService = ChallengeService.shared
 
     init() { load() }
 
@@ -20,10 +25,26 @@ class SpotService: ObservableObject {
 
     func isSpotted(_ carId: String) -> Bool { spottedIds.contains(carId) }
 
-    func markAsSpotted(_ carId: String) {
+    /// Neuer Spot mit optionalem GPS + Foto
+    func markAsSpotted(_ carId: String,
+                       latitude: Double? = nil,
+                       longitude: Double? = nil,
+                       locationName: String? = nil,
+                       photoIndex: Int? = nil) {
         guard !spottedIds.contains(carId) else { return }
         spottedIds.insert(carId)
         save()
+
+        // Neuen SpotRecord erstellen (mehrfach-Spots möglich)
+        spotStore.addSpot(carId: carId,
+                          latitude: latitude,
+                          longitude: longitude,
+                          locationName: locationName,
+                          photoIndex: photoIndex)
+
+        // Streak updaten
+        streakService.recordSpot()
+        streakService.refresh()
 
         // Achievement: Tages-Counter hochzählen
         AchievementService.shared.incrementTodayCount()
@@ -34,10 +55,13 @@ class SpotService: ObservableObject {
             totalPoints: totalPoints
         )
 
+        // Challenges refreshen
+        challengeService.refreshProgress()
+
         // Rangliste aktualisieren
         LeaderboardService.shared.updateMyScore(
             points: totalPoints,
-            spotsCount: spottedIds.count
+            spotsCount: spotStore.allSpottedIds.count
         )
     }
 
@@ -45,10 +69,16 @@ class SpotService: ObservableObject {
         spottedIds.remove(carId)
         save()
 
+        // Letzten SpotRecord löschen
+        spotStore.removeSpot(carId: carId)
+
+        // Streaks neu berechnen
+        streakService.refresh()
+
         // Rangliste auch beim Entfernen aktualisieren
         LeaderboardService.shared.updateMyScore(
             points: totalPoints,
-            spotsCount: spottedIds.count
+            spotsCount: spotStore.allSpottedIds.count
         )
     }
 
