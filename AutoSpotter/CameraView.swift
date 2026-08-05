@@ -173,7 +173,7 @@ struct CameraPreviewView: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
-// MARK: - Aufgenommenes Foto: Vorschau + Speichern
+// MARK: - Aufgenommenes Foto: Vorschau + Auto auswählen + Speichern
 
 struct CapturedPhotoSheet: View {
     let image: UIImage
@@ -182,19 +182,33 @@ struct CapturedPhotoSheet: View {
     let onRetake: () -> Void
 
     @State private var locationName: String = ""
+    @State private var searchText: String = ""
+    @State private var selectedCar: Car?
+    @State private var isSaving = false
+    @State private var saved = false
+    @Environment(\.dismiss) private var dismiss
+
+    var filteredCars: [Car] {
+        if searchText.isEmpty { return [] }
+        return allCars.filter {
+            $0.model.localizedCaseInsensitiveContains(searchText) ||
+            $0.brand.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .cornerRadius(12)
                     .padding(.horizontal)
+                    .frame(maxHeight: 200)
 
                 if let loc = location {
-                    VStack(spacing: 4) {
-                        Text("📍 Standort erfasst")
+                    HStack(spacing: 4) {
+                        Image(systemName: "location.fill")
                             .font(.caption)
                             .foregroundColor(.green)
                         Text(String(format: "%.5f, %.5f",
@@ -205,32 +219,88 @@ struct CapturedPhotoSheet: View {
                     }
                 }
 
-                TextField("Ort-Name (z.B. München, Leopoldstraße)", text: $locationName)
+                TextField("Ort (z.B. München, Leopoldstraße)", text: $locationName)
                     .textFieldStyle(.roundedBorder)
                     .padding(.horizontal)
 
+                Divider().padding(.horizontal)
+
+                Text("Welches Auto hast du gespottet?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                TextField("Auto suchen...", text: $searchText)
+                    .textFieldStyle(.roundedBorder)
+                    .padding(.horizontal)
+
+                if !filteredCars.isEmpty {
+                    List {
+                        ForEach(Array(filteredCars.prefix(10))) { car in
+                            Button(action: { selectedCar = car; searchText = car.model }) {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(car.model).foregroundColor(.white)
+                                        Text(car.brand).font(.caption).foregroundColor(.gray)
+                                    }
+                                    Spacer()
+                                    Text("\(car.points) Pkt")
+                                        .font(.caption)
+                                        .foregroundColor(Color(hex: "#E8C547"))
+                                }
+                            }
+                            .listRowBackground(Color.white.opacity(0.05))
+                        }
+                    }
+                    .listStyle(.plain)
+                    .frame(maxHeight: 200)
+                }
+
+                Spacer()
+
                 HStack(spacing: 30) {
                     Button(action: onRetake) {
-                        Label("Neu aufnehmen", systemImage: "arrow.triangle.2.circlepath")
+                        Label("Neu", systemImage: "arrow.triangle.2.circlepath")
                             .foregroundColor(.gray)
                     }
 
-                    Button(action: {
-                        onSave(image, locationName.isEmpty ? nil : locationName)
-                    }) {
-                        Label("Speichern", systemImage: "checkmark.circle.fill")
-                            .foregroundColor(Color(hex: "#E8C547"))
+                    Button(action: saveSpot) {
+                        Label(saved ? "Gespeichert!" : "Einreichen",
+                              systemImage: saved ? "checkmark.circle.fill" : "checkmark.circle.fill")
+                            .foregroundColor(selectedCar != nil ? Color(hex: "#E8C547") : .gray)
                             .fontWeight(.bold)
                     }
+                    .disabled(selectedCar == nil || isSaving)
                 }
-                .padding(.top, 10)
-
-                Spacer()
+                .padding(.bottom, 30)
             }
             .padding(.top)
             .background(Color(hex: "#0F0F0F").ignoresSafeArea())
-            .navigationTitle("Foto gespeichert")
+            .navigationTitle("Spotten & Speichern")
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+
+    private func saveSpot() {
+        guard let car = selectedCar else { return }
+        isSaving = true
+
+        // Foto speichern
+        let photoIndex = PhotoService.shared.savePhoto(image, forCarId: car.id)
+        PhotoService.shared.saveMeta(forCarId: car.id, index: photoIndex,
+                                      date: Date(), locationName: locationName.isEmpty ? nil : locationName)
+
+        // Auto spotten
+        SpotService.shared.markAsSpotted(
+            car.id,
+            latitude: location?.coordinate.latitude,
+            longitude: location?.coordinate.longitude,
+            locationName: locationName.isEmpty ? nil : locationName,
+            photoIndex: photoIndex
+        )
+
+        saved = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            onSave(image, locationName.isEmpty ? nil : locationName)
         }
     }
 }
